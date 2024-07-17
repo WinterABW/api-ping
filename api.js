@@ -1,26 +1,33 @@
-const express = require('express');
-const axios = require('axios');
-const cron = require('node-cron');
+const express = require("express");
+const axios = require("axios");
+const cron = require("node-cron");
 
 const app = express();
 const port = 3000 || process.env.PORT;
 
-// Endpoint para verificar que la API 1 está activa
-app.get('/ping', (req, res) => {
-    res.send('API 1 is active');
+// Lista de URLs a las que se les va a hacer ping
+const urls = [
+  "https://axltbot-backend.onrender.com/status",
+  "https://axltbot-backend.onrender.com/status",
+];
+
+app.get("/ping", (req, res) => {
+  res.send("API 1 is active");
 });
 
-// Tarea programada para hacer ping a otra API cada 30 segundos
+// Tarea programada para hacer ping a todas las URLs cada minuto
 cron.schedule('*/30 * * * * *', async () => {
+  for (const url of urls) {
     try {
-        const response = await axios.get('https://axltbot-backend.onrender.com/status');
-        console.log(`API fetch response: ${response.data}`);
+      const response = await axios.get(url);
+      console.log(`Response from ${url}: ${response.data}`);
     } catch (error) {
-        console.error('Error pinging API fetch: ', error);
+      console.error(`Error pinging ${url}: `, error);
     }
+  }
 });
 
 // Iniciar el servidor
 app.listen(port, () => {
-    console.log(`API ping listening at http://localhost:${port}`);
+  console.log(`API ping listening at http://localhost:${port}`);
 });

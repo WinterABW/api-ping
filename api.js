@@ -8,7 +8,7 @@ const port = 3000 || process.env.PORT;
 // Lista de URLs a las que se les va a hacer ping
 const urls = [
   "https://axltbot-backend.onrender.com/status",
-  "https://axltbot-backend.onrender.com/status",
+  "https://apiping2.onrender.com",
 ];
 
 app.get("/ping", (req, res) => {

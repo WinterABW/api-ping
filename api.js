@@ -9,6 +9,7 @@ const port = 3000 || process.env.PORT;
 const urls = [
   "https://axltbot-backend.onrender.com/status",
   "https://apiping2.onrender.com/ping",
+  'https://tesis-4w8o.onrender.com',
 ];
 
 app.get("/ping", (req, res) => {

@@ -11,7 +11,7 @@ app.get('/ping', (req, res) => {
 
 cron.schedule('*/30 * * * * *', async () => {
     try {
-        const response = await axios.get('http://localhost:3001/ping');
+        const response = await axios.get('https://axltbot-backend.onrender.com/status');
         console.log(`API fetch response: ${response.data}`);
     } catch (error) {
         console.error('Error pinging API fetch: ', error);

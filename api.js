@@ -5,7 +5,6 @@ const cron = require("node-cron");
 const app = express();
 const port = 3000 || process.env.PORT;
 
-// Lista de URLs a las que se les va a hacer ping
 const urls = [
   "https://axltbot-backend.onrender.com/status",
   "https://apiping2.onrender.com/ping",
@@ -17,7 +16,6 @@ app.get("/ping", (req, res) => {
   res.send("API 1 is active");
 });
 
-// Tarea programada para hacer ping a todas las URLs cada minuto
 cron.schedule('*/30 * * * * *', async () => {
   for (const url of urls) {
     try {
@@ -29,7 +27,6 @@ cron.schedule('*/30 * * * * *', async () => {
   }
 });
 
-// Iniciar el servidor
 app.listen(port, () => {
   console.log(`API ping listening at http://localhost:${port}`);
 });
